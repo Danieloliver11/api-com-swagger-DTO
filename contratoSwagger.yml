@@ -641,7 +641,7 @@ components:
         revendedoras:
           type: array
           items:
-           $ref: "#/components/schemas/revendedora"
+           $ref: "#/components/schemas/revendedoras"
           
     revendedoras:
       type: array
