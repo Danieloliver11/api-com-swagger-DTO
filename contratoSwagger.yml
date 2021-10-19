@@ -1,0 +1,637 @@
+openapi: 3.0.1
+info:
+  title: CACHAÇARIA API
+  description: 'API DE LOJAS QUE VENDEM CACHAÇA.'
+  version: 1.0.3
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Repositorio Gitlab
+    url: https://gitlab.com/g.sdomingues/contrato-swagger
+tags: 
+  - name: produtos
+  - name: Cliente
+  
+  - name: revendedora
+    description:  Camada de andpoint dos revendedores
+    externalDocs:
+      description: ...
+      url: http://swagger.io
+    
+externalDocs:
+  description: documento MER do banco de dados.
+  url: https://www.figma.com/file/cn7AaRafBq7dEgY1XvaDxm/Untitled?node-id=0%3A1
+
+servers: 
+# Added by API Auto Mocking Plugin
+- description: API TESTE CACHACARIA
+  url: https://6169b04c09e030001712c530.mockapi.io/cachaca/
+  
+
+paths:
+  /Cliente:
+    get:
+      tags: 
+      - Cliente
+      summary: Recuperando todos os dados de Clientes.
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Clientes"
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar."
+        
+    post:
+      tags: 
+      - Cliente
+      summary: Criando um novo Cliente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                cpf:
+                  type: string
+                ano_nascimento:
+                  type: number
+                endereco:
+                  type: string
+      responses:
+        201:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+        
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+        
+  /Cliente/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      tags: 
+      - Cliente
+      summary: Recuperando um Cliente pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  cpf:
+                    type: string
+                  ano_nascimento:
+                    type: number
+                  endereco:
+                    type: string
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+              
+    delete:
+      tags: 
+      - Cliente
+      summary: Deleta um Cliente pelo ID
+      responses:
+        200:
+          description: Apagado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  cpf:
+                    type: string
+                  ano_nascimento:
+                    type: number
+                  endereco:
+                    type: string
+                  
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado."
+              
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida."
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lida"
+    put:
+      tags: 
+      - Cliente
+      summary: Atualiza um Cliente pelo ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                cpf:
+                  type: string
+                no_nascimento:
+                  type: number
+                endereco:
+                  type: string
+      responses:
+        200:
+          description: Sucesso
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  cpf:
+                    type: string
+                  ano_nascimento:
+                    type: number
+                  endereco:
+                    type: string
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+
+  /produtos:
+    get:
+      tags: 
+      - produtos
+      summary: Recuperando todos os produtos
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/produtos"
+        
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+    post:
+      tags: 
+        - produtos
+      summary: Criando um novo produto
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  preco:
+                    type: number
+                  sabor:
+                    type: string
+                  validade:
+                    type: string
+                    format: date
+                
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              example: sucesso
+              schema:
+                $ref: "#/components/schemas/produtos"
+        
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+    
+  /produtos/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      tags: 
+      - produtos
+      summary: Recuperando um produto pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/produtos"
+        
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+            
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+    
+    delete:
+      tags: 
+      - produtos
+      summary: Deleta um produto pelo ID
+      responses:
+        200:
+          description: Apagado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  preco:
+                    type: number
+                  sabor:
+                    type: string
+                  validade:
+                    type: string
+                    format: date
+                            
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+            
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+          
+    put:
+      tags: 
+      - produtos
+      summary: Atualiza um produto pelo ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                preco:
+                  type: number
+                sabor:
+                  type: string
+                validade:
+                  type: string
+                  format: date
+      responses:
+        200:
+          description: Sucesso
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  preco:
+                    type: number
+                  sabor:
+                    type: string
+                  validade:
+                    type: string
+                    format: date
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+  
+  /revendedora:
+    get:
+      tags: 
+      - revendedora
+      summary: Recuperando todas as revendedoras 
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/revendedoras"
+        
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+    
+    post:
+      tags: 
+        - revendedora
+      summary: Criando um novo produto
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  endereco:
+                    type: string
+                  cnpj:
+                    type: string
+              
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              example: sucesso
+              schema:
+                $ref: "#/components/schemas/revendedora"
+        
+        400:
+          description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+          content:
+            application/json:
+              example: "o servidor não entendeu a requisição pois está com uma sintaxe inválida"
+        
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+
+  /revendedora/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      tags: 
+      - revendedora
+      summary: Recuperando um revendedor pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/revendedora"
+        
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+    
+    delete:
+      tags: 
+      - revendedora
+      summary: Deleta um produto pelo ID
+      responses:
+        200:
+          description: Apagado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  endereco:
+                    type: string
+                  cnpj:
+                    type: string
+                            
+        404:
+          description: O servidor não pode encontrar o recurso solicitado.
+          content:
+            application/json:
+              example: "O servidor não pode encontrar o recurso solicitado"
+              
+        500:
+          description: O servidor encontrou uma situação com a qual não sabe lidar.
+          content:
+            application/json:
+              example: "O servidor encontrou uma situação com a qual não sabe lidar"
+          
+    put:
+      tags: 
+      - revendedora
+      summary: Atualiza um revendedor pelo ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  nome:
+                    type: string
+                  endereco:
+                    type: string
+                  cnpj:
+                    type: string
+      responses:
+        200:
+          description: Sucesso
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                    nome:
+                      type: string
+                    endereco:
+                      type: string
+                    cnpj:
+                      type: string
+        
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        cpf:
+          type: string
+        no_nascimento:
+          type: number
+        endereco:
+          type: string
+          
+    Clientes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Cliente"
+        
+    produtos:
+      type: array
+      items:
+        $ref: "#/components/schemas/produto"
+        
+    produto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        preco:
+          type: number
+        sabor:
+          type: string
+        validade:
+          type: string
+          format: date
+          
+    revendedoras:
+      type: array
+      items:
+        $ref: "#/components/schemas/revendedora"
+    
+    revendedora:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        endereco:
+          type: string
+        cnpj:
+          type: string
+          
