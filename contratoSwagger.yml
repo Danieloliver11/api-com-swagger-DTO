@@ -8,17 +8,12 @@ info:
     name: Repositorio Gitlab
     url: https://gitlab.com/g.sdomingues/contrato-swagger
 tags: 
-  - name: produtos
   - name: Cliente
-  
-  - name: revendedora
-    description:  Camada de andpoint dos revendedores
-    externalDocs:
-      description: ...
-      url: http://swagger.io
+  - name: Produto 
+  - name: Revendedor
     
 externalDocs:
-  description: documento MER do banco de dados.
+  description: Modelagem MER - Database. 
   url: https://www.figma.com/file/cn7AaRafBq7dEgY1XvaDxm/Untitled?node-id=0%3A1
 
 servers: 
@@ -39,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/Clientes"
+                  $ref: "#/components/schemas/Cliente"
         404:
           description: O servidor não pode encontrar o recurso solicitado.
           content:
@@ -229,10 +224,10 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
 
-  /produtos:
+  /Produto:
     get:
       tags: 
-      - produtos
+      - Produto
       summary: Recuperando todos os produtos
       responses:
         200:
@@ -240,7 +235,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/produtos"
+                $ref: "#/components/schemas/produto"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -255,7 +250,7 @@ paths:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
     post:
       tags: 
-        - produtos
+        - Produto
       summary: Criando um novo produto
       requestBody:
           content:
@@ -295,7 +290,7 @@ paths:
             application/json:
               example: sucesso
               schema:
-                $ref: "#/components/schemas/produtos"
+                $ref: "#/components/schemas/produto"
         
         400:
           description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
@@ -309,7 +304,7 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
     
-  /produtos/{id}:
+  /Produto/{id}:
     parameters:
     - name: id
       in: path
@@ -318,7 +313,7 @@ paths:
       required: true
     get:
       tags: 
-      - produtos
+      - Produto
       summary: Recuperando um produto pelo ID
       responses:
         200:
@@ -328,7 +323,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/produtos"
+                  $ref: "#/components/schemas/produto"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -344,7 +339,7 @@ paths:
     
     delete:
       tags: 
-      - produtos
+      - Produto
       summary: Deleta um produto pelo ID
       responses:
         200:
@@ -380,7 +375,7 @@ paths:
           
     put:
       tags: 
-      - produtos
+      - Produto
       summary: Atualiza um produto pelo ID
       requestBody:
         content:
@@ -435,7 +430,7 @@ paths:
   /revendedora:
     get:
       tags: 
-      - revendedora
+      - Revendedor
       summary: Recuperando todas as revendedoras 
       responses:
         200:
@@ -443,7 +438,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/revendedoras"
+                $ref: "#/components/schemas/revendedor"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -459,7 +454,7 @@ paths:
     
     post:
       tags: 
-        - revendedora
+        - Revendedor
       summary: Criando um novo produto
       requestBody:
           content:
@@ -481,7 +476,7 @@ paths:
             application/json:
               example: sucesso
               schema:
-                $ref: "#/components/schemas/revendedora"
+                $ref: "#/components/schemas/revendedor"
         
         400:
           description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
@@ -495,7 +490,7 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
 
-  /revendedora/{id}:
+  /Revendedor/{id}:
     parameters:
     - name: id
       in: path
@@ -504,7 +499,7 @@ paths:
       required: true
     get:
       tags: 
-      - revendedora
+      - Revendedor
       summary: Recuperando um revendedor pelo ID
       responses:
         200:
@@ -514,7 +509,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/revendedora"
+                  $ref: "#/components/schemas/revendedor"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -530,7 +525,7 @@ paths:
     
     delete:
       tags: 
-      - revendedora
+      - Revendedor
       summary: Deleta um produto pelo ID
       responses:
         200:
@@ -563,7 +558,7 @@ paths:
           
     put:
       tags: 
-      - revendedora
+      - Revendedor
       summary: Atualiza um revendedor pelo ID
       requestBody:
         content:
@@ -607,18 +602,10 @@ components:
           type: number
         endereco:
           type: string
-        
-            
-          
-    Clientes:
-      type: array
-      items:
-        $ref: "#/components/schemas/Cliente"
-        
-    produtos:
-      type: array
-      items:
-        $ref: "#/components/schemas/produto"
+        Revendedor: 
+          type: array
+          items:
+            $ref: "#/components/schemas/revendedor"
         
     produto:
       type: object
@@ -634,21 +621,14 @@ components:
         validade:
           type: string
           format: date
-        Clientes:
+        Revendedor:
           type: array
           items:
-            $ref: "#/components/schemas/Clientes"
-        revendedoras:
-          type: array
-          items:
-           $ref: "#/components/schemas/revendedoras"
-          
-    revendedoras:
-      type: array
-      items:
-        $ref: "#/components/schemas/revendedora"
+            $ref: "#/components/schemas/revendedor"
+        
+ 
     
-    revendedora:
+    revendedor:
       type: object
       properties:
         id:
@@ -659,3 +639,4 @@ components:
           type: string
         cnpj:
           type: string
+       
