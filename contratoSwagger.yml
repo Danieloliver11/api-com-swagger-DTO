@@ -272,6 +272,21 @@ paths:
                   validade:
                     type: string
                     format: date
+                  clientes_cpf:
+                    type: array
+                    items:
+                      properties:
+                        cpf:  
+                          type: string
+                  revendedora_cnpj:
+                    type: array
+                    items:
+                      properties:
+                        cnpj:
+                          type: string
+                      
+                          
+                        
                 
       responses:
         200:
@@ -592,6 +607,8 @@ components:
           type: number
         endereco:
           type: string
+        
+            
           
     Clientes:
       type: array
@@ -617,6 +634,14 @@ components:
         validade:
           type: string
           format: date
+        Clientes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Clientes"
+        revendedoras:
+          type: array
+          items:
+           $ref: "#/components/schemas/revendedora"
           
     revendedoras:
       type: array
@@ -634,4 +659,3 @@ components:
           type: string
         cnpj:
           type: string
-          
