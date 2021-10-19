@@ -8,16 +8,21 @@ info:
     name: Repositorio Gitlab
     url: https://gitlab.com/g.sdomingues/contrato-swagger
 tags: 
+  - name: produtos
   - name: Cliente
-  - name: Produto 
-  - name: Revendedor
+  
+  - name: revendedora
+    description:  Camada de andpoint dos revendedores
+    externalDocs:
+      description: ...
+      url: http://swagger.io
     
 externalDocs:
-  description: Modelagem MER - Database. 
+  description: documento MER do banco de dados.
   url: https://www.figma.com/file/cn7AaRafBq7dEgY1XvaDxm/Untitled?node-id=0%3A1
 
 servers: 
-# Added by API Auto Mocking Plugin
+# 
 - description: API TESTE CACHACARIA
   url: https://6169b04c09e030001712c530.mockapi.io/cachaca/
   
@@ -34,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/Cliente"
+                  $ref: "#/components/schemas/Clientes"
         404:
           description: O servidor não pode encontrar o recurso solicitado.
           content:
@@ -65,6 +70,10 @@ paths:
                   type: number
                 endereco:
                   type: string
+                produtos:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/produto"
       responses:
         201:
           description: "Sucesso"
@@ -114,6 +123,11 @@ paths:
                     type: number
                   endereco:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
+                  
         404:
           description: O servidor não pode encontrar o recurso solicitado.
           content:
@@ -154,6 +168,11 @@ paths:
                     type: number
                   endereco:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
+                  
                   
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -190,6 +209,10 @@ paths:
                   type: number
                 endereco:
                   type: string
+                produtos:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/produto"
       responses:
         200:
           description: Sucesso
@@ -206,6 +229,10 @@ paths:
                     type: number
                   endereco:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
         404:
           description: O servidor não pode encontrar o recurso solicitado.
           content:
@@ -224,10 +251,10 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
 
-  /Produto:
+  /produtos:
     get:
       tags: 
-      - Produto
+      - produtos
       summary: Recuperando todos os produtos
       responses:
         200:
@@ -235,7 +262,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/produto"
+                $ref: "#/components/schemas/produtos"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -250,7 +277,7 @@ paths:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
     post:
       tags: 
-        - Produto
+        - produtos
       summary: Criando um novo produto
       requestBody:
           content:
@@ -267,19 +294,7 @@ paths:
                   validade:
                     type: string
                     format: date
-                  clientes_cpf:
-                    type: array
-                    items:
-                      properties:
-                        cpf:  
-                          type: string
-                  revendedora_cnpj:
-                    type: array
-                    items:
-                      properties:
-                        cnpj:
-                          type: string
-                      
+                  
                           
                         
                 
@@ -290,7 +305,7 @@ paths:
             application/json:
               example: sucesso
               schema:
-                $ref: "#/components/schemas/produto"
+                $ref: "#/components/schemas/produtos"
         
         400:
           description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
@@ -304,7 +319,7 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
     
-  /Produto/{id}:
+  /produtos/{id}:
     parameters:
     - name: id
       in: path
@@ -313,7 +328,7 @@ paths:
       required: true
     get:
       tags: 
-      - Produto
+      - produtos
       summary: Recuperando um produto pelo ID
       responses:
         200:
@@ -323,7 +338,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/produto"
+                  $ref: "#/components/schemas/produtos"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -339,7 +354,7 @@ paths:
     
     delete:
       tags: 
-      - Produto
+      - produtos
       summary: Deleta um produto pelo ID
       responses:
         200:
@@ -375,7 +390,7 @@ paths:
           
     put:
       tags: 
-      - Produto
+      - produtos
       summary: Atualiza um produto pelo ID
       requestBody:
         content:
@@ -430,7 +445,7 @@ paths:
   /revendedora:
     get:
       tags: 
-      - Revendedor
+      - revendedora
       summary: Recuperando todas as revendedoras 
       responses:
         200:
@@ -438,7 +453,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/revendedor"
+                $ref: "#/components/schemas/revendedoras"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -454,7 +469,7 @@ paths:
     
     post:
       tags: 
-        - Revendedor
+        - revendedora
       summary: Criando um novo produto
       requestBody:
           content:
@@ -468,6 +483,10 @@ paths:
                     type: string
                   cnpj:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
               
       responses:
         200:
@@ -476,7 +495,7 @@ paths:
             application/json:
               example: sucesso
               schema:
-                $ref: "#/components/schemas/revendedor"
+                $ref: "#/components/schemas/revendedora"
         
         400:
           description: o servidor não entendeu a requisição pois está com uma sintaxe inválida.
@@ -490,7 +509,7 @@ paths:
             application/json:
               example: "O servidor encontrou uma situação com a qual não sabe lidar"
 
-  /Revendedor/{id}:
+  /revendedora/{id}:
     parameters:
     - name: id
       in: path
@@ -499,7 +518,7 @@ paths:
       required: true
     get:
       tags: 
-      - Revendedor
+      - revendedora
       summary: Recuperando um revendedor pelo ID
       responses:
         200:
@@ -509,7 +528,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/revendedor"
+                  $ref: "#/components/schemas/revendedora"
         
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -525,7 +544,7 @@ paths:
     
     delete:
       tags: 
-      - Revendedor
+      - revendedora
       summary: Deleta um produto pelo ID
       responses:
         200:
@@ -543,6 +562,10 @@ paths:
                     type: string
                   cnpj:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
                             
         404:
           description: O servidor não pode encontrar o recurso solicitado.
@@ -558,7 +581,7 @@ paths:
           
     put:
       tags: 
-      - Revendedor
+      - revendedora
       summary: Atualiza um revendedor pelo ID
       requestBody:
         content:
@@ -572,6 +595,10 @@ paths:
                     type: string
                   cnpj:
                     type: string
+                  produtos:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/produto"
       responses:
         200:
           description: Sucesso
@@ -586,6 +613,11 @@ paths:
                       type: string
                     cnpj:
                       type: string
+                    produtos:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/produto"
+                    
         
 components:
   schemas:
@@ -602,10 +634,24 @@ components:
           type: number
         endereco:
           type: string
-        Revendedor: 
+        produtos:
           type: array
           items:
-            $ref: "#/components/schemas/revendedor"
+            $ref: "#/components/schemas/produto"
+        
+          
+        
+            
+          
+    Clientes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Cliente"
+        
+    produtos:
+      type: array
+      items:
+        $ref: "#/components/schemas/produto"
         
     produto:
       type: object
@@ -621,14 +667,13 @@ components:
         validade:
           type: string
           format: date
-        Revendedor:
-          type: array
-          items:
-            $ref: "#/components/schemas/revendedor"
-        
- 
+          
+    revendedoras:
+      type: array
+      items:
+        $ref: "#/components/schemas/revendedora"
     
-    revendedor:
+    revendedora:
       type: object
       properties:
         id:
@@ -639,4 +684,9 @@ components:
           type: string
         cnpj:
           type: string
-       
+          
+        produtos:
+          type: array
+          items:
+            $ref: "#/components/schemas/produto"
+        
