@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
 
 import br.com.magnasistemas.cachacariaapi.DTO.ProdutoDTO;
 import br.com.magnasistemas.cachacariaapi.DTO.RevendedoraDTO;
@@ -30,8 +31,13 @@ public class MapperConfigRevendedora {
 		return modelMapper.map(revendedoraDTO, Revendedora.class);
 	}
 	
-	public List<RevendedoraDTO> paraListaModelRevendedora(List<Revendedora> revendedoras){
+	public List<RevendedoraDTO> paraListaModelPageRevendedora(Page<Revendedora> page){
 				
+		return page.stream().map(revends -> paraModelRevendedora(revends)).collect(Collectors.toList());
+	}
+	
+	public List<RevendedoraDTO> paraListaModelRevendedora(List<Revendedora> revendedoras){
+		
 		return revendedoras.stream().map(revends -> paraModelRevendedora(revends)).collect(Collectors.toList());
 	}
 

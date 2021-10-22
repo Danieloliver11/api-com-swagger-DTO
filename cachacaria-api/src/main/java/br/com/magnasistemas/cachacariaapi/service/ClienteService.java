@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magnasistemas.cachacariaapi.DTO.ClienteDTO;
@@ -29,9 +30,9 @@ public class ClienteService {
 		return clienteDTO;
 	}
 	
-	public Iterable<ClienteDTO> acharTodos() {
+	public Iterable<ClienteDTO> acharTodos(Pageable pageable) {
 		
-		return mapperCliente.paraListaModel((List<Cliente>) repository.findAll());
+		return mapperCliente.paraListaPageModel(repository.findAll(pageable));
 	}
 	
 	public ClienteDTO acharPorIdCliente(long id) {

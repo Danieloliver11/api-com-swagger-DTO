@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
 
 import br.com.magnasistemas.cachacariaapi.DTO.ProdutoDTO;
 import br.com.magnasistemas.cachacariaapi.entity.Produto;
@@ -36,6 +37,12 @@ public class MapperConfigProduto {
 	public List<ProdutoDTO> paraListaModel(List<Produto> produtos){
 		
 		return produtos.stream().map(prods -> paraModel(prods)).collect(Collectors.toList());
+	}
+	
+	
+	public List<ProdutoDTO> paraListaPageModel(Page<Produto> page){
+		
+		return page.stream().map(prods -> paraModel(prods)).collect(Collectors.toList());
 	}
 
 	

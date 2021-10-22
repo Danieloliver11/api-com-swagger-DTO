@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
 
 import br.com.magnasistemas.cachacariaapi.DTO.ClienteDTO;
 import br.com.magnasistemas.cachacariaapi.DTO.ProdutoDTO;
@@ -31,10 +32,13 @@ public class MapperConfgCliente {
 		return modelMapper.map(clienteDTO, Cliente.class);
 	}
 	
-	public List<ClienteDTO> paraListaModel(List<Cliente> clientes){
+	public List<ClienteDTO> paraListaPageModel(Page<Cliente> page){
 				
-		return clientes.stream().map(clients -> paraModel(clients)).collect(Collectors.toList());
+		return page.stream().map(clients -> paraModel(clients)).collect(Collectors.toList());
 	}
 	
-
+	public List<ClienteDTO> paraListaModel(List<Cliente> clientes){
+		
+		return clientes.stream().map(clients -> paraModel(clients)).collect(Collectors.toList());
+	}
 }

@@ -17,6 +17,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> escutaException(Exception e, WebRequest request){
 		
 		String descricaoMessage = e.getLocalizedMessage();
+		String titutlo = e.getMessage();
 		
 		if(descricaoMessage == null) {
 			
@@ -29,5 +30,5 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 	}
 }
 
-// class para escutar as axceptions no controller
+// class para escutar as axceptions
 //		return new ResponseEntity<>(e, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);

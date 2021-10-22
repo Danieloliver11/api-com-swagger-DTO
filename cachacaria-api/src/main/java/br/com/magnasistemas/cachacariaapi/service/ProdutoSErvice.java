@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,9 @@ public class ProdutoSErvice {
 		return produtoDTO ;
 	}
 
-	public Iterable<ProdutoDTO> acharTodos() {
+	public Iterable<ProdutoDTO> acharTodos(Pageable pageable) {
 		
-		return mapperProduto.paraListaModel((List<Produto>) repository.findAll());
+		return mapperProduto.paraListaPageModel( repository.findAll(pageable));
 	}
 	
 	public ProdutoDTO acharPorId(long id) {

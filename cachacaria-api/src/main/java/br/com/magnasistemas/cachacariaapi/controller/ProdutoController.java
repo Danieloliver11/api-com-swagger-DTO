@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,11 +42,11 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoServer.salvar(mapperProduto.paraModel(produto)));
 		
 	}
-	
-	@ApiOperation(value = "Retorna todos os produto")
-	@GetMapping			
-	public ResponseEntity<Iterable<ProdutoDTO>> getAllProduto(){
-		return ResponseEntity.ok(produtoServer.acharTodos()); 
+	//page size
+	@ApiOperation(value = "Retorna todos os produto com paginação")
+	@GetMapping	
+	public ResponseEntity<Iterable<ProdutoDTO>> getAllProduto(@PageableDefault(page = 0 ) Pageable pageable){
+		return ResponseEntity.ok(produtoServer.acharTodos(pageable)); 
 	}
 	
 	@GetMapping("/{id}")
@@ -71,56 +73,12 @@ public class ProdutoController {
 	public void deleteProduto(@PathVariable long id) {
 		//EmptyResultDataAccessException Throwable
 
-		try {
-			produtoServer.deletar(id);
-
-		} catch (EmptyResultDataAccessException e) {
-			// TODO: handle exception
-		}
-		
+			produtoServer.deletar(id);	
 	}
 	
-	
-	
-	
-	
-	
-	/**
-	@Autowired
-	private ProdutoRepository repository;
-	
-	@PostMapping								
-	public ResponseEntity<Produto> postProduto (@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
-		
-	}
-	
-	@GetMapping			
-	public ResponseEntity<Iterable<Produto>> getAllProduto(){
-		return ResponseEntity.ok(repository.findAll()); 
-	}
-	
-	@GetMapping("/{id}")						
-	public ResponseEntity<Produto> getProdutoById(@PathVariable long id){
-		return repository.findById(id) 
-				.map(resp -> ResponseEntity.ok(resp)) 
-				.orElse(ResponseEntity.notFound().build());
-	}
-	
-	@GetMapping("/nome/{nome}")  
-	public ResponseEntity<List<Produto>>getProdutoByTitulo(@PathVariable String nome){  
-		return ResponseEntity.ok(repository.findAllBynomeContainingIgnoreCase(nome)); 
-	}
-	
-	@PutMapping
-	public ResponseEntity<Produto> putProduto (@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produto));
-	}
-	
-	@DeleteMapping("/{id}")
-	public void deleteProduto(@PathVariable long id) {
-		repository.deleteById(id);
-	}
-	
-	*/
 }
+
+
+/*
+ * */
+ 

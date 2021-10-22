@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magnasistemas.cachacariaapi.DTO.ProdutoDTO;
@@ -31,9 +32,9 @@ public class RevendedoraService {
 		return revendedoraDTO ;
 	}
 	
-	public Iterable<RevendedoraDTO> acharTodasRevendedoras() {
+	public Iterable<RevendedoraDTO> acharTodasRevendedoras(Pageable pageable) {
 		
-		return mapperRevendedora.paraListaModelRevendedora((List<Revendedora>) repository.findAll());
+		return mapperRevendedora.paraListaModelPageRevendedora(repository.findAll(pageable));
 	}
 
 	public RevendedoraDTO acharRevendedoraPorId(long id) {
